@@ -9,7 +9,7 @@
 
 'use strict';
 
-var _ = require('lodash');
+var User = require('../../models').User;
 
 // Get list of things
 exports.index = function(req, res) {

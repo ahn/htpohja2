@@ -1,3 +1,4 @@
+/* globals angular  */
 'use strict';
 
 angular.module('workspaceApp')
@@ -6,6 +7,11 @@ angular.module('workspaceApp')
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          loggedInUser: /*@ngInject*/ function(authService) {
+            return authService.getUserFromServerIfNeeded();
+          }
+        }
       });
   });

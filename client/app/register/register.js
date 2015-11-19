@@ -1,3 +1,4 @@
+/* globals angular */
 'use strict';
 
 angular.module('workspaceApp')
@@ -6,6 +7,11 @@ angular.module('workspaceApp')
       .state('register', {
         url: '/register',
         templateUrl: 'app/register/register.html',
-        controller: 'RegisterCtrl'
+        controller: 'RegisterCtrl',
+        resolve: {
+          loggedInUser: /*@ngInject*/ function(authService) {
+            return authService.getUserFromServerIfNeeded();
+          }
+        }
       });
   });

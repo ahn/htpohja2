@@ -14,6 +14,8 @@ var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
+var session = require('express-session');
+var passport = require('../auth').passport;
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -26,6 +28,10 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  
+  app.use('/api', session({ secret: 'fjioaVFNanisof', resave: false, saveUninitialized: false }));
+  app.use('/api', passport.initialize());
+  app.use('/api', passport.session());
   
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));

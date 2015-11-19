@@ -16,11 +16,17 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
+        <li ng-if="!loggedInUser">
             <a ng-href="/register">Rekisteröidy</a>
         </li>
-        <li>
+        <li ng-if="!loggedInUser">
             <a ng-href="/login">Kirjaudu</a>
+        </li>
+        <li ng-if="loggedInUser">
+            <a ng-href="/">{{loggedInUser.username}}</a>
+        </li>
+        <li ng-if="loggedInUser">
+            <a ng-href="/" ng-click="logout()">Kirjaudu ulos</a>
         </li>
       </ul>
     </div>

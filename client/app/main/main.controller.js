@@ -1,11 +1,13 @@
+/* globals angular */
 'use strict';
 
 angular.module('workspaceApp')
-  .controller('MainCtrl', function ($scope, $http) {
+  .controller('MainCtrl', function ($scope, $http, loggedInUser) {
+    $scope.loggedInUser = loggedInUser;
     $scope.awesomeThings = [];
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
+    $http.get('/api/users').then(function(response) {
+      $scope.users = response.data;
     });
 
   });
