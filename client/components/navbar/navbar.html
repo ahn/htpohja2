@@ -10,9 +10,17 @@
       <a href="/" class="navbar-brand">workspace</a>
     </div>
     <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-left">
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
             <a ng-href="{{item.link}}">{{item.title}}</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a ng-href="/register">Rekisteröidy</a>
+        </li>
+        <li>
+            <a ng-href="/login">Kirjaudu</a>
         </li>
       </ul>
     </div>
