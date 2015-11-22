@@ -11,7 +11,13 @@ module.exports = function(sequelize, DataTypes) {
       unique: true
     },
     realname: DataTypes.STRING,
-    password_hash: DataTypes.STRING,
+    password_hash: {
+      type: DataTypes.STRING,
+      get: function() {
+        // TODO how to completely hide the key too?
+        return null;
+      }
+    },
     password: {
       type: DataTypes.VIRTUAL,
       set: function(val) {
@@ -23,22 +29,15 @@ module.exports = function(sequelize, DataTypes) {
   },
   {
     instanceMethods: {
-      toJSON: function() {
-        var u = this.get();
-        return {
-          username: u.username,
-          realname: u.realname
-        };
-      },
       verifyPassword(password, callback) {
-        var hashHex = this.get().password_hash;
+        var hashHex = this.getDataValue('password_hash');
         var hash = new Buffer(hashHex, 'hex'); 
         scrypt.verifyKdf(hash, password, callback);
       }
     },
     classMethods: {
       associate: function(models) {
-        //User.hasMany(models.Message)
+
       }
     }
   });
