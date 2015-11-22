@@ -48,10 +48,6 @@ passport.use(new LocalStrategy(
   }
 ));
 
-router.use(session({ secret: 'fjioaVFNanisof', resave: false, saveUninitialized: false }));
-router.use(passport.initialize());
-router.use(passport.session());
-
 // Autentikaatio-middleware
 // https://vickev.com/#!/article/authentication-in-single-page-applications-node-js-passportjs-angularjs
 function auth(req, res, next) {

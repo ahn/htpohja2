@@ -29,9 +29,9 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   
-  app.use('/api', session({ secret: 'fjioaVFNanisof', resave: false, saveUninitialized: false }));
-  app.use('/api', passport.initialize());
-  app.use('/api', passport.session());
+  app.use('/:var(api|auth)', session({ secret: 'fjioaVFNanisof', resave: false, saveUninitialized: false }));
+  app.use('/:var(api|auth)', passport.initialize());
+  app.use('/:var(api|auth)', passport.session());
   
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
