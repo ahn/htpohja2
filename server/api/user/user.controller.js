@@ -1,6 +1,7 @@
 'use strict';
 
 var models = require('../../models');
+var request = require('request');
 
 
 exports.index = function(req, res) {
@@ -8,6 +9,7 @@ exports.index = function(req, res) {
     res.json(users);
   });
 };
+
 
 exports.show = function(req, res) {
   var user;
@@ -40,6 +42,7 @@ exports.create = function (req, res) {
     realname: realname,
     password: password
   }).then(function(user) {
+    //sendSms(user);
     res.json(user);
   },
   function(err) {
@@ -54,3 +57,34 @@ exports.create = function (req, res) {
   });
 
 };
+
+
+function sendSms(user) {
+
+  // TODO: täydennä omilla tiedoilla:
+  var twilioAccount = '';
+  var to = '';
+  var from = '';
+  var twilioUser = '';
+  var twilioPass = '';
+
+  request.post('https://api.twilio.com/2010-04-01/Accounts/' + twilioAccount + '/Messages.json',
+    {
+      form: {
+        To: to,
+        From: from,
+        Body: 'Käyttäjä ' + user.username + ' rekisteröityi.'
+      },
+      auth: {
+        user: twilioUser,
+        pass: twilioPass,
+      }
+    }, function(error, response, body) {
+      if (error) {
+        console.log("error", error);
+      }
+      else {
+        console.log("sent");
+      }
+    });
+}
